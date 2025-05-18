@@ -46,21 +46,6 @@ export default function Index() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  map: {
-    width: '100%',
-    height: '100%',
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  error: {
-    color: 'red',
-    margin: 20,
-    textAlign: 'center',
-  },
+  container: { flex: 1 },
+  map: { width: '100%', height: '100%' }
 });

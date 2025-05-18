@@ -80,21 +80,7 @@ export default function MarkerDetails() {
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    padding: 20 
-  },
-  imageBlock: { 
-    marginVertical: 10 
-  },
-  image: { 
-    width: 200, 
-    height: 200, 
-    borderRadius: 10 
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 20
-  }
+  container: { flex: 1, padding: 20 },
+  imageBlock: { marginVertical: 10 },
+  image: { width: 200, height: 200, borderRadius: 10 }
 });

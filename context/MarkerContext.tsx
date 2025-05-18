@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { ImageData, MarkerData } from '../types';
-import { db, initDB } from '../database/db';
+import { db, initDB } from '../database/schema';
 
 type MarkerContextType = {
   markers: MarkerData[];
