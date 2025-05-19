@@ -2,14 +2,10 @@ import React from "react";
 import { View, Text, Button, FlatList, Alert, Image, StyleSheet } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
-import { ImageData, RootStackParamList } from "../../types";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useMarkers } from "../../context/MarkerContext";
 
-type Props = NativeStackScreenProps<RootStackParamList, "MarkerDetails">;
-
 export default function MarkerDetails() {
-  const route = useRoute<Props["route"]>();
+  const route = useRoute();
   const navigation = useNavigation();
   const { id } = route.params;
   const { markers, addImageToMarker, removeImageFromMarker, removeMarker } = useMarkers();
@@ -33,7 +29,7 @@ export default function MarkerDetails() {
       });
 
       if (!result.canceled && result.assets?.length) {
-        const newImage: ImageData = {
+        const newImage = {
           id: Date.now().toString(),
           uri: result.assets[0].uri,
           marker_id: ""
@@ -46,7 +42,7 @@ export default function MarkerDetails() {
   };
 
   const deleteImage = (imageId: string) => {
-    removeImageFromMarker(marker.id, imageId);
+    removeImageFromMarker(imageId);
   };
 
   const handleDeleteMarker = () => {
