@@ -27,10 +27,8 @@ export const MarkerProvider = ({ children }) => {
       } else {
         setMarkers([]);
       }
-    } catch (err) {
-      Alert.alert('Ошибка', 'Невозможно загрузить маркеры!');
-      console.error('Failed to add marker:', err);
     }
+    catch (err) { Alert.alert("Ошибка", "Не удалось загрузить маркеры!"); }
   };
 
   const addMarker = async (marker: Omit<'images'>) => {
@@ -40,10 +38,8 @@ export const MarkerProvider = ({ children }) => {
         [marker.id, marker.latitude, marker.longitude]
       );
       await loadMarkers();
-    } catch (err) {
-      Alert.alert('Ошибка', 'Невозможно загрузить маркеры!');
-      console.error('Failed to add marker:', err);
     }
+    catch (err) { Alert.alert("Ошибка", "Не удалось добавить маркеры!"); }
   };
 
   const addImageToMarker = async (markerId: string, image) => {
@@ -53,10 +49,8 @@ export const MarkerProvider = ({ children }) => {
         [image.id, markerId, image.uri]
       );
       await loadMarkers();
-    } catch (err) {
-      Alert.alert('Ошибка', 'Невозможно загрузить маркеры!');
-      console.error('Failed to add marker:', err);
     }
+    catch (err) { Alert.alert("Ошибка", "Не удалось добавить изображение!"); }
   };
 
   const removeImageFromMarker = async (imageId: string) => {
@@ -66,10 +60,8 @@ export const MarkerProvider = ({ children }) => {
         [imageId]
       );
       await loadMarkers();
-    } catch (err) {
-      Alert.alert('Ошибка', 'Невозможно загрузить маркеры!');
-      console.error('Failed to add marker:', err);
     }
+    catch (err) { Alert.alert("Ошибка", "Не удалось удалить изображение!"); }
   };
 
   const removeMarker = async (markerId: string) => {
@@ -79,10 +71,8 @@ export const MarkerProvider = ({ children }) => {
         [markerId]
       );
       await loadMarkers();
-    } catch (err) {
-      Alert.alert('Ошибка', 'Невозможно загрузить маркеры!');
-      console.error('Failed to add marker:', err);
     }
+    catch (err) { Alert.alert("Ошибка", "Не удалось удалить маркер!"); }
   };
 
   useEffect(() => {
@@ -90,10 +80,8 @@ export const MarkerProvider = ({ children }) => {
       try {
         await initDB();
         await loadMarkers();
-      } catch (err) {
-        Alert.alert('Ошибка', 'Невозможно загрузить маркеры!');
-        console.error('Failed to add marker:', err);
       }
+      catch (err) { Alert.alert("Ошибка", "Не удалось иницилизировать базу данных!"); }
     };
 
     initialize();
