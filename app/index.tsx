@@ -10,9 +10,8 @@ import haversine from 'haversine';
 export default function Index() {
   const { markers, addMarker } = useMarkers();
   const router = useRouter();
-  const [userLocation, setUserLocation] = useState(null);
-  const [notifiedMarkers, setNotifiedMarkers] = useState([]);
-  const [notificationIds, setNotificationIds] = useState([]);
+  const [userLocation, setUserLocation] = useState(null); // локация юзера
+  const [notifiedMarkers, setNotifiedMarkers] = useState([]); // маркеры, которые уведомили
 
   useEffect(() => { // уведомления
     Notifications.setNotificationHandler({
@@ -23,7 +22,7 @@ export default function Index() {
       })
     });
 
-    const checkNotificationPermission = async () => {
+    const checkNotificationPermission = async () => { // разрешение на уведомление
       const { status } = await Notifications.requestPermissionsAsync();
       if (status !== 'granted') { Alert.alert('Ошибка', 'Доступ к уведомлениям запрещён!'); }
     };
@@ -35,7 +34,7 @@ export default function Index() {
     let locationSubscription; // хранит подписку
 
     const getLocation = async () => {
-      const { status } = await Location.requestForegroundPermissionsAsync(); // запрос разрешения
+      const { status } = await Location.requestForegroundPermissionsAsync(); // запрос геолокации
       if (status !== 'granted') {
         Alert.alert('Ошибка', 'Доступ к геолокации запрещён!');
         return;
@@ -54,7 +53,6 @@ export default function Index() {
           longitudeDelta: 1.0,
         });
       });
-      
     };
 
     getLocation();
@@ -69,7 +67,7 @@ export default function Index() {
   useEffect(() => {
     if (!userLocation || markers.length === 0) return;
 
-    markers.forEach(async marker => {
+    markers.forEach(async marker => { // идём по маркерам
       const distance = haversine( // считаем дистанцию
         { latitude: userLocation.latitude, longitude: userLocation.longitude },
         { latitude: marker.latitude, longitude: marker.longitude }
@@ -86,18 +84,10 @@ export default function Index() {
         setNotifiedMarkers((prev) => [...prev, marker.id]);
       }
       else if (distance >= 0.1 && notifiedMarkers.includes(marker.id)) { // если юзер ушёл
-        if (notificationIds[marker.id]) {
-          await Notifications.cancelScheduledNotificationAsync(notificationIds[marker.id]);
-          setNotificationIds((prev) => {
-            const newIds = { ...prev }; // создаем новый объект для обновления состояния
-            delete newIds[marker.id]; // удаляем id уведомления из объекта
-            return newIds; // обновляем состояние
-          });
-        }
         setNotifiedMarkers((prev) => prev.filter((id) => id !== marker.id)); // удаляем маркер из списка
       }
     });
-  }, [userLocation]);
+  }, [userLocation]); // срабатываем при изменении локации юзера
 
   const handleLongPress = (e: LongPressEvent) => {
     const newMarker = {
