@@ -4,3 +4,7 @@
 
 Копируется программа из прошлой лабораторной работы, и дополнительно к предыдущим зависимостям добавляется `expo-location`, `expo-notifications` и ``haversine`
 
+<совсем скоро readme будет дополнено>
+
+## Демонстрация работы программы
+https://github.com/user-attachments/assets/ab000909-43a7-4d8c-bdda-fba2fdd93785
